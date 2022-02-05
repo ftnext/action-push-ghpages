@@ -1,0 +1,28 @@
+name: "Push to GitHub Pages branch"
+description: "This action pushes specified static assets to the gh-pages branch with the repository secret."
+author: "nikkie"
+inputs:
+  build_dir:
+    description: "Path to the directory where the static assets are located."
+    required: true
+  github_token:
+    description: "Specify GITHUB_TOKEN in your repository."
+    required: true
+runs:
+  using: composite
+  steps:
+    - run: |
+        # ref: https://github.com/maxheld83/ghpages/blob/68f783a4f5313d776c1599e18479607e71c9c738/entrypoint.sh
+        cd ${INPUT_BUILD_DIR}
+        git init
+        git config user.name $GITHUB_ACTOR
+        git config user.email $GITHUB_ACTOR@users.noreply.github.com
+        git remote add origin https://x-access-token:${INPUT_GITHUB_TOKEN}@github.com/$GITHUB_REPOSITORY
+        git add .
+        git commit -m "[release] Publish on GitHub Pages"
+        git push --force origin master:gh-pages
+      env:
+        # workaround ref: https://github.com/actions/runner/issues/665#issuecomment-699481628
+        INPUT_BUILD_DIR: ${{ inputs.build_dir }}
+        INPUT_GITHUB_TOKEN: ${{ inputs.github_token }}
+      shell: bash
