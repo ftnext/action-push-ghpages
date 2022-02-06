@@ -2,22 +2,29 @@
 
 （日本語が後に続きます）
 
-Push specified static assets to the gh-pages branch
+This GitHub Action creates a commit with the specified static assets and pushes it to the `gh-pages` branch.  
+You can publish the assets as GitHub Pages by setting the source to the `gh-pages` branch.
 
 このGitHub Actionは、指定した静的ファイル群を含んだコミットを作り、`gh-pages` ブランチに push します。  
-sourceを `gh-pages` ブランチに設定することで、GitHub Pagesとして公開できます。
+sourceを `gh-pages` ブランチに設定することで、静的ファイル群をGitHub Pagesとして公開できます。
 
 ## Inputs
 
 ### `build_dir`
+
+**Required** The path to the directory where the static files are located.  
+Specify this as relative path from the root of the repository.
 
 **必須** 静的ファイル群が置かれているディレクトリへのパスです。  
 リポジトリのルートからの相対パスで指定してください。
 
 ### `github_token`
 
+**Required** Specify `secrets.GITHUB_TOKEN`.  
+Used to push a commit to the repository.
+
 **必須** `secrets.GITHUB_TOKEN` を指定してください。  
-リポジトリにpushする際に使います。
+リポジトリにコミットをpushする際に使います。
 
 ## Example Usage
 
