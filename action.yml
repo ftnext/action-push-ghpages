@@ -26,3 +26,6 @@ runs:
         INPUT_BUILD_DIR: ${{ inputs.build_dir }}
         INPUT_GITHUB_TOKEN: ${{ inputs.github_token }}
       shell: bash
+branding:
+  icon: "git-branch"
+  color: "green"
